@@ -1,12 +1,13 @@
 use_frameworks!
 
 target 'Reqres_Example' do
-  pod 'Reqres', :path => '../'
-
-  target 'Reqres_Tests' do
-    inherit! :search_paths
-
-    pod 'Quick', '~> 0.8'
-  pod 'Nimble', '~> 3.0'
-  end
+    pod 'Reqres', :path => '../'
+    pod 'Alamofire'
+    
+    target 'Reqres_Tests' do
+        inherit! :search_paths
+        
+        pod 'Quick', '~> 0.8'
+        pod 'Nimble', '~> 3.0'
+    end
 end

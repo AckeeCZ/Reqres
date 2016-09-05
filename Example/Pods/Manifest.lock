@@ -1,0 +1,25 @@
+PODS:
+  - Alamofire (3.4.2)
+  - Nimble (3.2.0)
+  - Quick (0.9.3)
+  - Reqres (1.2.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - Nimble (~> 3.0)
+  - Quick (~> 0.8)
+  - Reqres (from `../`)
+
+EXTERNAL SOURCES:
+  Reqres:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Alamofire: 6aa33201d20d069e1598891cf928883ff1888c7a
+  Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
+  Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
+  Reqres: 1f2b4310bbdbb8b4bf72d8ad4e35b58aee6a2181
+
+PODFILE CHECKSUM: 063a9c173c7da933a2f26fc71512e931223d7678
+
+COCOAPODS: 1.0.1
