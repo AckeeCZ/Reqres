@@ -1,4 +1,4 @@
-![ackee|Reqres](https://github.com/hyperoslo/Whisper/blob/master/Resources/cover-image.png)
+![ackee|Reqres](https://github.com/AckeeCZ/Reqres/blob/master/Resources/cover-image.png)
 
 [![CI Status](http://img.shields.io/travis/AckeeCZ/Reqres.svg?style=flat)](https://travis-ci.org/AckeeCZ/Reqres)
 [![Version](https://img.shields.io/cocoapods/v/Reqres.svg?style=flat)](http://cocoapods.org/pods/Reqres)
