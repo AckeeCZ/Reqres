@@ -11,104 +11,104 @@ import Foundation
 let ReqresRequestHandledKey = "ReqresRequestHandledKey"
 let ReqresRequestTimeKey = "ReqresRequestTimeKey"
 
-public class Reqres: NSURLProtocol {
+open class Reqres: URLProtocol {
     var connection: NSURLConnection?
     var data: NSMutableData?
-    var response: NSURLResponse?
+    var response: URLResponse?
     var newRequest: NSMutableURLRequest?
 
-    public static var allowUTF8Emoji: Bool = true
+    open static var allowUTF8Emoji: Bool = true
 
-    public static var logger: ReqresLogging = ReqresDefaultLogger()
+    open static var logger: ReqresLogging = ReqresDefaultLogger()
 
-    public class func register() {
-        NSURLProtocol.registerClass(self)
+    open class func register() {
+        URLProtocol.registerClass(self)
     }
 
-    public class func unregister() {
-        NSURLProtocol.unregisterClass(self)
+    open class func unregister() {
+        URLProtocol.unregisterClass(self)
     }
 
-    public class func defaultSessionConfiguration() -> NSURLSessionConfiguration {
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        config.protocolClasses?.insert(Reqres.self, atIndex: 0)
+    open class func defaultSessionConfiguration() -> URLSessionConfiguration {
+        let config = URLSessionConfiguration.default
+        config.protocolClasses?.insert(Reqres.self, at: 0)
         return config
     }
 
     // MARK: - NSURLProtocol
 
-    public override class func canInitWithRequest(request: NSURLRequest) -> Bool {
-        guard self.propertyForKey(ReqresRequestHandledKey, inRequest: request) == nil && self.logger.logLevel != .None else {
+    open override class func canInit(with request: URLRequest) -> Bool {
+        guard self.property(forKey: ReqresRequestHandledKey, in: request) == nil && self.logger.logLevel != .none else {
             return false
         }
         return true
     }
 
-    public override class func canonicalRequestForRequest(request: NSURLRequest) -> NSURLRequest {
+    open override class func canonicalRequest(for request: URLRequest) -> URLRequest {
         return request
     }
 
-    public override class func requestIsCacheEquivalent(a: NSURLRequest, toRequest b: NSURLRequest) -> Bool {
-        return super.requestIsCacheEquivalent(a, toRequest: b)
+    open override class func requestIsCacheEquivalent(_ a: URLRequest, to b: URLRequest) -> Bool {
+        return super.requestIsCacheEquivalent(a, to: b)
     }
 
-    public override func startLoading() {
-        guard let req = request.mutableCopy() as? NSMutableURLRequest where newRequest == nil else { return }
+    open override func startLoading() {
+        guard let req = (request as NSURLRequest).mutableCopy() as? NSMutableURLRequest , newRequest == nil else { return }
 
         self.newRequest = req
 
-        NSURLProtocol.setProperty(true, forKey: ReqresRequestHandledKey, inRequest: newRequest!)
-        NSURLProtocol.setProperty(NSDate(), forKey: ReqresRequestTimeKey, inRequest: newRequest!)
+        URLProtocol.setProperty(true, forKey: ReqresRequestHandledKey, in: newRequest!)
+        URLProtocol.setProperty(Date(), forKey: ReqresRequestTimeKey, in: newRequest!)
 
-        connection = NSURLConnection(request: newRequest!, delegate: self)
+        connection = NSURLConnection(request: newRequest! as URLRequest, delegate: self)
 
-        logRequest(newRequest!)
+        logRequest(newRequest! as URLRequest)
     }
 
-    public override func stopLoading() {
+    open override func stopLoading() {
         connection?.cancel()
         connection = nil
     }
 
     // MARK: NSURLConnectionDelegate
 
-    func connection(connection: NSURLConnection!, didReceiveResponse response: NSURLResponse!) {
-        let policy = NSURLCacheStoragePolicy(rawValue: request.cachePolicy.rawValue) ?? .NotAllowed
-        client?.URLProtocol(self, didReceiveResponse: response, cacheStoragePolicy: policy)
+    func connection(_ connection: NSURLConnection!, didReceiveResponse response: URLResponse!) {
+        let policy = URLCache.StoragePolicy(rawValue: request.cachePolicy.rawValue) ?? .notAllowed
+        client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: policy)
 
         self.response = response
         self.data = NSMutableData()
     }
 
-    func connection(connection: NSURLConnection!, didReceiveData data: NSData!) {
-        client?.URLProtocol(self, didLoadData: data)
-        self.data?.appendData(data)
+    func connection(_ connection: NSURLConnection!, didReceiveData data: Data!) {
+        client?.urlProtocol(self, didLoad: data)
+        self.data?.append(data)
     }
 
-    func connectionDidFinishLoading(connection: NSURLConnection!) {
-        client?.URLProtocolDidFinishLoading(self)
+    func connectionDidFinishLoading(_ connection: NSURLConnection!) {
+        client?.urlProtocolDidFinishLoading(self)
 
         if let response = response {
-            logResponse(response, method: connection.originalRequest.HTTPMethod, data: data)
+            logResponse(response, method: connection.originalRequest.httpMethod, data: data as Data?)
         }
     }
 
-    func connection(connection: NSURLConnection!, didFailWithError error: NSError!) {
-        client?.URLProtocol(self, didFailWithError: error)
+    func connection(_ connection: NSURLConnection!, didFailWithError error: NSError!) {
+        client?.urlProtocol(self, didFailWithError: error)
         logError(connection.originalRequest, error: error)
     }
 
     // MARK: - Logging
 
-    public func logError(request: NSURLRequest, error: NSError) {
+    open func logError(_ request: URLRequest, error: NSError) {
 
         var s = ""
 
-        if let method = request.HTTPMethod {
+        if let method = request.httpMethod {
             s += "\(method) "
         }
 
-        if let url = request.URL?.absoluteString {
+        if let url = request.url?.absoluteString {
             s += "\(url) "
         }
 
@@ -122,59 +122,59 @@ public class Reqres: NSURLProtocol {
             s += "\nSuggestion: \(suggestion)"
         }
 
-        self.dynamicType.logger.logError(s)
+        type(of: self).logger.logError(s)
     }
 
-    public func logRequest(request: NSURLRequest) {
+    open func logRequest(_ request: URLRequest) {
 
         var s = ""
 
-        if self.dynamicType.allowUTF8Emoji {
+        if type(of: self).allowUTF8Emoji {
             s += "⬆️ "
         }
 
-        if let method = request.HTTPMethod {
+        if let method = request.httpMethod {
             s += "\(method) "
         }
 
-        if let url = request.URL?.absoluteString {
+        if let url = request.url?.absoluteString {
             s += "'\(url)' "
         }
 
-        if self.dynamicType.logger.logLevel == .Verbose {
+        if type(of: self).logger.logLevel == .verbose {
 
-            if let headers = request.allHTTPHeaderFields where headers.count > 0 {
-                s += "\n" + logHeaders(headers)
+            if let headers = request.allHTTPHeaderFields , headers.count > 0 {
+                s += "\n" + logHeaders(headers as [String : AnyObject])
             }
 
             s += "\nBody: \(bodyString(request.httpBodyData))"
 
-            self.dynamicType.logger.logVerbose(s)
+            type(of: self).logger.logVerbose(s)
         } else {
 
-            self.dynamicType.logger.logLight(s)
+            type(of: self).logger.logLight(s)
         }
     }
 
-    public func logResponse(response: NSURLResponse, method: String?, data: NSData? = nil) {
+    open func logResponse(_ response: URLResponse, method: String?, data: Data? = nil) {
 
         var s = ""
 
-        if self.dynamicType.allowUTF8Emoji {
+        if type(of: self).allowUTF8Emoji {
             s += "⬇️ "
         }
 
-        if let method = newRequest?.HTTPMethod {
+        if let method = newRequest?.httpMethod {
             s += "\(method) "
         }
 
-        if let url = response.URL?.absoluteString {
+        if let url = response.url?.absoluteString {
             s += "\(url) "
         }
 
-        if let httpResponse = response as? NSHTTPURLResponse {
+        if let httpResponse = response as? HTTPURLResponse {
             s += "("
-            if self.dynamicType.allowUTF8Emoji {
+            if type(of: self).allowUTF8Emoji {
                 let iconNumber = Int(floor(Double(httpResponse.statusCode) / 100.0))
                 if let iconString = statusIcons[iconNumber] {
                     s += "\(iconString) "
@@ -187,28 +187,28 @@ public class Reqres: NSURLProtocol {
             }
             s += ")"
 
-            if let startDate = NSURLProtocol.propertyForKey(ReqresRequestTimeKey, inRequest: newRequest!) as? NSDate {
+            if let startDate = URLProtocol.property(forKey: ReqresRequestTimeKey, in: newRequest! as URLRequest) as? Date {
                 let difference = fabs(startDate.timeIntervalSinceNow)
                 s += String(format: " [time: %.5f s]", difference)
             }
         }
 
-        if self.dynamicType.logger.logLevel == .Verbose {
+        if type(of: self).logger.logLevel == .verbose {
 
-            if let headers = (response as? NSHTTPURLResponse)?.allHeaderFields as? [String: AnyObject] where headers.count > 0 {
+            if let headers = (response as? HTTPURLResponse)?.allHeaderFields as? [String: AnyObject] , headers.count > 0 {
                 s += "\n" + logHeaders(headers)
             }
 
             s += "\nBody: \(bodyString(data))"
 
-            self.dynamicType.logger.logVerbose(s)
+            type(of: self).logger.logVerbose(s)
         } else {
 
-            self.dynamicType.logger.logLight(s)
+            type(of: self).logger.logLight(s)
         }
     }
 
-    public func logHeaders(headers: [String: AnyObject]) -> String {
+    open func logHeaders(_ headers: [String: AnyObject]) -> String {
         var s = "Headers: [\n"
         for (key, value) in headers {
             s += "\t\(key) : \(value)\n"
@@ -217,14 +217,14 @@ public class Reqres: NSURLProtocol {
         return s
     }
 
-    func bodyString(body: NSData?) -> String {
+    func bodyString(_ body: Data?) -> String {
 
         if let body = body {
-            if let json = try? NSJSONSerialization.JSONObjectWithData(body, options: .MutableContainers),
-                let pretty = try? NSJSONSerialization.dataWithJSONObject(json, options: .PrettyPrinted),
-                let string = String(data: pretty, encoding: NSUTF8StringEncoding) {
+            if let json = try? JSONSerialization.jsonObject(with: body, options: .mutableContainers),
+                let pretty = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted),
+                let string = String(data: pretty, encoding: String.Encoding.utf8) {
                     return string
-            } else if let string = String(data: body, encoding: NSUTF8StringEncoding) {
+            } else if let string = String(data: body, encoding: String.Encoding.utf8) {
                     return string
             } else {
                     return body.description
@@ -235,22 +235,22 @@ public class Reqres: NSURLProtocol {
     }
 }
 
-extension NSURLRequest {
-    var httpBodyData: NSData? {
+extension URLRequest {
+    var httpBodyData: Data? {
 
-        guard let stream = HTTPBodyStream else {
-            return HTTPBody
+        guard let stream = httpBodyStream else {
+            return httpBody
         }
 
         let data = NSMutableData()
         stream.open()
         let bufferSize = 4096
-        let buffer = UnsafeMutablePointer<UInt8>.alloc(bufferSize)
+        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
         while stream.hasBytesAvailable {
             let bytesRead = stream.read(buffer, maxLength: bufferSize)
             if bytesRead > 0 {
-                let readData = NSData(bytes: buffer, length: bytesRead)
-                data.appendData(readData)
+                let readData = Data(bytes: UnsafePointer<UInt8>(buffer), count: bytesRead)
+                data.append(readData)
             } else if bytesRead < 0 {
                 print("error occured while reading HTTPBodyStream: \(bytesRead)")
             } else {
@@ -258,7 +258,7 @@ extension NSURLRequest {
             }
         }
         stream.close()
-        return data
+        return data as Data
     }
 }
 

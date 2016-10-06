@@ -6,36 +6,36 @@
 //
 //
 
-public class ReqresDefaultLogger: ReqresLogging {
+open class ReqresDefaultLogger: ReqresLogging {
 
-    public var logLevel: LogLevel = .Verbose
+    open var logLevel: LogLevel = .verbose
 
-    public func logVerbose(message: String) {
+    open func logVerbose(_ message: String) {
         print(message)
     }
 
-    public func logLight(message: String) {
+    open func logLight(_ message: String) {
         print(message)
     }
 
-    public func logError(message: String) {
+    open func logError(_ message: String) {
         print(message)
     }
 }
 
-public class ReqresDefaultNSLogger: ReqresLogging {
+open class ReqresDefaultNSLogger: ReqresLogging {
 
-    public var logLevel: LogLevel = .Verbose
+    open var logLevel: LogLevel = .verbose
 
-    public func logVerbose(message: String) {
+    open func logVerbose(_ message: String) {
         NSLog(message)
     }
 
-    public func logLight(message: String) {
+    open func logLight(_ message: String) {
         NSLog(message)
     }
 
-    public func logError(message: String) {
+    open func logError(_ message: String) {
         NSLog(message)
     }
 }
