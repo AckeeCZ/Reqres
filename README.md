@@ -101,6 +101,12 @@ Reqres.allowUTF8Emoji = false
 
 Reqres breaks Alamofire `.authenticate(user: password:)` method (and possibly more..?). Use with caution! Write tests! Volunteer to fix this bug!
 
+## Forking this repository 
+If you use Reqres in your projects drop us as tweet at [@ackeecz][1]. We would love to hear about it!
+
+## Sharing is caring
+This tool and repo has been opensourced within our `#sharingiscaring` action when we have decided to opensource our internal projects.
+
 ## Author
 
 [Ackee](www.ackee.cz) team. We were inspired by andysmart's [Timberjack](https://github.com/andysmart/Timberjack)
@@ -109,3 +115,4 @@ Reqres breaks Alamofire `.authenticate(user: password:)` method (and possibly mo
 
 Reqres is available under the MIT license. See the LICENSE file for more info.
 
+[1]:	https://twitter.com/AckeeCZ
