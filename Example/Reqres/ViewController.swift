@@ -17,16 +17,17 @@ class ViewController: UIViewController {
 
         // create alamofire manger with right configuration
         let configuration = Reqres.defaultSessionConfiguration()
-        configuration.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders
-        let alamofireManager = Alamofire.Manager(configuration: configuration)
+        configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+        let alamofireManager = SessionManager(configuration: configuration)
 
         // make sample request
-        alamofireManager.request(.POST, "https://requestb.in/q9bnyvq9", parameters: ["foo": "bar"], encoding: .JSON)
+        alamofireManager.request("https://requestb.in/q9bnyvq9", method: .post, parameters: ["foo": "bar"], encoding: JSONEncoding.default)
             .authenticate(user: "blabla", password: "blabla")
             .validate()
-            .response() { (request, response, data, error) in
-                debugPrint(request)
-                debugPrint(response)
-        }
+            .response(completionHandler: { (response) in
+                debugPrint(response.request)
+                debugPrint(response.response)
+            })
+        
     }
 }

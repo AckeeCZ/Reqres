@@ -7,15 +7,15 @@
 //
 
 public enum LogLevel {
-    case None
-    case Light
-    case Verbose
+    case none
+    case light
+    case verbose
 }
 
 public protocol ReqresLogging {
     var logLevel: LogLevel { get set }
 
-    func logVerbose(message: String)
-    func logLight(message: String)
-    func logError(message: String)
+    func logVerbose(_ message: String)
+    func logLight(_ message: String)
+    func logError(_ message: String)
 }
