@@ -53,8 +53,8 @@ Initialization is different for usage with Alamofire and NSURLSession.
 Create your Alamofire.Manager with proper configuration to make it work with Alamofire.
 ```swift
 let configuration = Reqres.defaultSessionConfiguration()
-configuration.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders
-let alamofireManager = Alamofire.Manager(configuration: configuration)
+configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+return SessionManager(configuration: configuration)
 ```
 Then you must use this manager for all requests, so replace all `Alamofire.request(...)` to `alamofireManager.request(...)`
 
