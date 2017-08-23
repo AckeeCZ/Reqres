@@ -8,7 +8,7 @@
 Reqres is a simple library for logging all requests and responses in your app. It supports Alamofire and also requests made via native NSURLSession.
 
 ```
-⬆️ POST 'https://ackee.cz/examples' 
+⬆️ POST 'https://ackee.cz/examples'
 Headers: [
 	Accept-Encoding : gzip;q=1.0, compress;q=0.5
 	Accept-Language : en-US;q=1.0
@@ -45,6 +45,14 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "Reqres"
 ```
+
+### Swift version compatibility
+
+| Swift version | Reqres version |
+| ------------- | -------------- |
+| 2.x           | 1.2.x          |
+| 3.x           | >= 2.0         |
+| 4.x           | >= 2.0         |
 
 ## Usage
 Initialization is different for usage with Alamofire and NSURLSession.
@@ -101,7 +109,7 @@ Reqres.allowUTF8Emoji = false
 
 Reqres breaks Alamofire `.authenticate(user: password:)` method (and possibly more..?). Use with caution! Write tests! Volunteer to fix this bug!
 
-## Forking this repository 
+## Forking this repository
 If you use Reqres in your projects drop us as tweet at [@ackeecz][1]. We would love to hear about it!
 
 ## Sharing is caring
