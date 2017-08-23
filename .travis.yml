@@ -2,13 +2,13 @@
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
 
-osx_image: xcode8
+osx_image: xcode9
 language: objective-c
 # cache: cocoapods
 # podfile: Example/Podfile
 before_install:
 - gem install cocoapods --pre # Since Travis is not always on latest version
-# - pod install --project-directory=Example
+- pod install --project-directory=Example
 script:
 - set -o pipefail && xcodebuild test -workspace Example/Reqres.xcworkspace -scheme Reqres-Example -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' ONLY_ACTIVE_ARCH=NO | xcpretty
 - pod lib lint
