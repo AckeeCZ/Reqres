@@ -1,6 +1,6 @@
 //
-//  ACKNetworkLogger.swift
-//  ACKNetworkLogger
+//  Reqres.swift
+//  Reqres
 //
 //  Created by Jan Mísař on 05/27/2016.
 //  Copyright (c) 2016 Jan Mísař. All rights reserved.

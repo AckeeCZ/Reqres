@@ -1,6 +1,6 @@
 //
-//  ACKLogging.swift
-//  Pods
+//  ReqresLogging.swift
+//  Reqres
 //
 //  Created by Jan Mísař on 02.08.16.
 //
