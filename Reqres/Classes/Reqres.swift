@@ -11,166 +11,160 @@ import Foundation
 let ReqresRequestHandledKey = "ReqresRequestHandledKey"
 let ReqresRequestTimeKey = "ReqresRequestTimeKey"
 
-open class Reqres: URLProtocol {
-    var connection: NSURLConnection?
-    var data: NSMutableData?
-    var response: URLResponse?
+open class Reqres: URLProtocol, URLSessionDelegate {
+    var dataTask: URLSessionDataTask?
     var newRequest: NSMutableURLRequest?
-
+    
     open static var allowUTF8Emoji: Bool = true
-
+    
     open static var logger: ReqresLogging = ReqresDefaultLogger()
-
+    
     open class func register() {
         URLProtocol.registerClass(self)
     }
-
+    
     open class func unregister() {
         URLProtocol.unregisterClass(self)
     }
-
+    
     open class func defaultSessionConfiguration() -> URLSessionConfiguration {
         let config = URLSessionConfiguration.default
         config.protocolClasses?.insert(Reqres.self, at: 0)
         return config
     }
-
+    
     // MARK: - NSURLProtocol
-
+    
     open override class func canInit(with request: URLRequest) -> Bool {
         guard self.property(forKey: ReqresRequestHandledKey, in: request) == nil && self.logger.logLevel != .none else {
             return false
         }
         return true
     }
-
+    
     open override class func canonicalRequest(for request: URLRequest) -> URLRequest {
         return request
     }
-
+    
     open override class func requestIsCacheEquivalent(_ a: URLRequest, to b: URLRequest) -> Bool {
         return super.requestIsCacheEquivalent(a, to: b)
     }
-
+    
     open override func startLoading() {
-        guard let req = (request as NSURLRequest).mutableCopy() as? NSMutableURLRequest , newRequest == nil else { return }
-
+        guard let req = (request as NSURLRequest).mutableCopy() as? NSMutableURLRequest, newRequest == nil else { return }
+        
         self.newRequest = req
-
+        
         URLProtocol.setProperty(true, forKey: ReqresRequestHandledKey, in: newRequest!)
         URLProtocol.setProperty(Date(), forKey: ReqresRequestTimeKey, in: newRequest!)
-
-        connection = NSURLConnection(request: newRequest! as URLRequest, delegate: self)
-
+        
+        let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+        dataTask = session.dataTask(with: request) { [weak self] data, response, error in
+            guard let `self` = self else { return }
+            
+            if let error = error {
+                self.client?.urlProtocol(self, didFailWithError: error)
+                self.logError(self.request, error: error as NSError)
+                
+                return
+            }
+            
+            guard let response = response, let data = data else { return }
+            
+            self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: URLCache.StoragePolicy.allowed)
+            self.client?.urlProtocol(self, didLoad: data)
+            self.client?.urlProtocolDidFinishLoading(self)
+            self.logResponse(response, method: nil, data: data)
+        }
+        dataTask?.resume()
+        
         logRequest(newRequest! as URLRequest)
     }
-
+    
     open override func stopLoading() {
-        connection = nil
+        dataTask?.cancel()
     }
-
-    // MARK: NSURLConnectionDelegate
-
-    func connection(_ connection: NSURLConnection!, didReceiveResponse response: URLResponse!) {
-        let policy = URLCache.StoragePolicy(rawValue: request.cachePolicy.rawValue) ?? .notAllowed
-        client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: policy)
-
-        self.response = response
-        self.data = NSMutableData()
-    }
-
-    func connection(_ connection: NSURLConnection!, didReceiveData data: Data!) {
-        client?.urlProtocol(self, didLoad: data)
-        self.data?.append(data)
-    }
-
-    func connectionDidFinishLoading(_ connection: NSURLConnection!) {
-        client?.urlProtocolDidFinishLoading(self)
-
-        if let response = response {
-            logResponse(response, method: connection.originalRequest.httpMethod, data: data as Data?)
-        }
-    }
-
-    func connection(_ connection: NSURLConnection!, didFailWithError error: NSError!) {
-        client?.urlProtocol(self, didFailWithError: error)
-        logError(connection.originalRequest, error: error)
-    }
-
+    
     // MARK: - Logging
-
+    
     open func logError(_ request: URLRequest, error: NSError) {
-
+        
         var s = ""
-
+        
+        if type(of: self).allowUTF8Emoji {
+            s += "⚠️ "
+        }
+        
         if let method = request.httpMethod {
             s += "\(method) "
         }
-
+        
         if let url = request.url?.absoluteString {
             s += "\(url) "
         }
-
+        
         s += "ERROR: \(error.localizedDescription)"
-
+        
         if let reason = error.localizedFailureReason {
             s += "\nReason: \(reason)"
         }
-
+        
         if let suggestion = error.localizedRecoverySuggestion {
             s += "\nSuggestion: \(suggestion)"
         }
-
+        
         type(of: self).logger.logError(s)
     }
-
+    
     open func logRequest(_ request: URLRequest) {
-
+        
         var s = ""
-
+        
         if type(of: self).allowUTF8Emoji {
             s += "⬆️ "
         }
-
+        
         if let method = request.httpMethod {
             s += "\(method) "
         }
-
+        
         if let url = request.url?.absoluteString {
             s += "'\(url)' "
         }
-
+        
         if type(of: self).logger.logLevel == .verbose {
-
+            
             if let headers = request.allHTTPHeaderFields , headers.count > 0 {
                 s += "\n" + logHeaders(headers as [String : AnyObject])
             }
-
+            
             s += "\nBody: \(bodyString(request.httpBodyData))"
-
+            
             type(of: self).logger.logVerbose(s)
         } else {
-
+            
             type(of: self).logger.logLight(s)
         }
     }
-
+    
     open func logResponse(_ response: URLResponse, method: String?, data: Data? = nil) {
-
+        
         var s = ""
-
+        
         if type(of: self).allowUTF8Emoji {
             s += "⬇️ "
         }
-
-        if let method = newRequest?.httpMethod {
+        
+        if let method = method {
+            s += "\(method)"
+        } else if let method = newRequest?.httpMethod {
             s += "\(method) "
         }
-
+        
         if let url = response.url?.absoluteString {
-            s += "\(url) "
+            s += "'\(url)' "
         }
-
+        
         if let httpResponse = response as? HTTPURLResponse {
             s += "("
             if type(of: self).allowUTF8Emoji {
@@ -179,34 +173,34 @@ open class Reqres: URLProtocol {
                     s += "\(iconString) "
                 }
             }
-
+            
             s += "\(httpResponse.statusCode)"
             if let statusString = statusStrings[httpResponse.statusCode] {
                 s += " \(statusString)"
             }
             s += ")"
-
+            
             if let startDate = URLProtocol.property(forKey: ReqresRequestTimeKey, in: newRequest! as URLRequest) as? Date {
                 let difference = fabs(startDate.timeIntervalSinceNow)
                 s += String(format: " [time: %.5f s]", difference)
             }
         }
-
+        
         if type(of: self).logger.logLevel == .verbose {
-
+            
             if let headers = (response as? HTTPURLResponse)?.allHeaderFields as? [String: AnyObject] , headers.count > 0 {
                 s += "\n" + logHeaders(headers)
             }
-
+            
             s += "\nBody: \(bodyString(data))"
-
+            
             type(of: self).logger.logVerbose(s)
         } else {
-
+            
             type(of: self).logger.logLight(s)
         }
     }
-
+    
     open func logHeaders(_ headers: [String: AnyObject]) -> String {
         var s = "Headers: [\n"
         for (key, value) in headers {
@@ -215,18 +209,18 @@ open class Reqres: URLProtocol {
         s += "]"
         return s
     }
-
+    
     func bodyString(_ body: Data?) -> String {
-
+        
         if let body = body {
             if let json = try? JSONSerialization.jsonObject(with: body, options: .mutableContainers),
                 let pretty = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted),
                 let string = String(data: pretty, encoding: String.Encoding.utf8) {
-                    return string
+                return string
             } else if let string = String(data: body, encoding: String.Encoding.utf8) {
-                    return string
+                return string
             } else {
-                    return body.description
+                return body.description
             }
         } else {
             return "nil"
@@ -236,11 +230,11 @@ open class Reqres: URLProtocol {
 
 extension URLRequest {
     var httpBodyData: Data? {
-
+        
         guard let stream = httpBodyStream else {
             return httpBody
         }
-
+        
         let data = NSMutableData()
         stream.open()
         let bufferSize = 4096
@@ -274,7 +268,7 @@ let statusStrings = [
     100: "Continue",
     101: "Switching Protocols",
     102: "Processing",
-
+    
     // 2xx (Success)
     200: "OK",
     201: "Created",
@@ -286,7 +280,7 @@ let statusStrings = [
     207: "Multi-Status",
     208: "Already Reported",
     226: "IM Used",
-
+    
     // 3xx (Redirection)
     300: "Multiple Choices",
     301: "Moved Permanently",
@@ -297,7 +291,7 @@ let statusStrings = [
     306: "Switch Proxy",
     307: "Temporary Redirect",
     308: "Permanent Redirect",
-
+    
     // 4xx (Client Error)
     400: "Bad Request",
     401: "Unauthorized",
@@ -328,7 +322,7 @@ let statusStrings = [
     429: "Too Many Requests",
     431: "Request Header Fields Too Large",
     451: "Unavailable For Legal Reasons",
-
+    
     // 5xx (Server Error)
     500: "Internal Server Error",
     501: "Not Implemented",
@@ -343,3 +337,4 @@ let statusStrings = [
     510: "Not Extended",
     511: "Network Authentication Required"
 ]
+
