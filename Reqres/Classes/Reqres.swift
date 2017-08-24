@@ -66,7 +66,6 @@ open class Reqres: URLProtocol {
     }
 
     open override func stopLoading() {
-        connection?.cancel()
         connection = nil
     }
 
