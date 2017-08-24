@@ -58,7 +58,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
         URLProtocol.setProperty(true, forKey: ReqresRequestHandledKey, in: newRequest!)
         URLProtocol.setProperty(Date(), forKey: ReqresRequestTimeKey, in: newRequest!)
 
-        let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+        let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
         dataTask = session.dataTask(with: request) { [weak self] data, response, error in
             guard let `self` = self else { return }
 
@@ -71,7 +71,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
             guard let response = response, let data = data else { return }
 
-            self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: URLCache.StoragePolicy.allowed)
+            self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .allowed)
             self.client?.urlProtocol(self, didLoad: data)
             self.client?.urlProtocolDidFinishLoading(self)
             self.logResponse(response, method: nil, data: data)
