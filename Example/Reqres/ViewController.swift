@@ -28,6 +28,6 @@ class ViewController: UIViewController {
                 debugPrint(response.request)
                 debugPrint(response.response)
             })
-        
+
     }
 }
