@@ -1,6 +1,0 @@
-framework module Reqres {
-  umbrella header "Reqres-umbrella.h"
-
-  export *
-  module * { export * }
-}
