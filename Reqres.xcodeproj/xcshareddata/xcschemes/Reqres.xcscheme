@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Reqres.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "69A899E51FF427E0003D0A71"
+               BuildableName = "ReqresTests.xctest"
+               BlueprintName = "ReqresTests"
+               ReferencedContainer = "container:Reqres.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -29,7 +43,26 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "69A899E51FF427E0003D0A71"
+               BuildableName = "ReqresTests.xctest"
+               BlueprintName = "ReqresTests"
+               ReferencedContainer = "container:Reqres.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "69A899B11FF423C4003D0A71"
+            BuildableName = "Reqres.framework"
+            BlueprintName = "Reqres"
+            ReferencedContainer = "container:Reqres.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
