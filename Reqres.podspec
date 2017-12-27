@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Reqres'
-  s.version          = '2.1.0'
+  s.version          = '2.1.1'
   s.summary          = 'Simple network activity logger'
 
   s.description      = <<-DESC
@@ -23,5 +23,5 @@ Logs every request app makes, works great with Alamofire.
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'Reqres/Classes/**/*'
+  s.source_files = 'Reqres/*.swift'
 end
