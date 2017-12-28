@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "0920"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-               BuildableName = "Reqres_Example.app"
-               BlueprintName = "Reqres_Example"
-               ReferencedContainer = "container:Reqres.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "Reqres_Tests.xctest"
-               BlueprintName = "Reqres_Tests"
+               BlueprintIdentifier = "69A899BE1FF423E2003D0A71"
+               BuildableName = "ReqresExample.app"
+               BlueprintName = "ReqresExample"
                ReferencedContainer = "container:Reqres.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -40,25 +26,16 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "Reqres_Tests.xctest"
-               BlueprintName = "Reqres_Tests"
-               ReferencedContainer = "container:Reqres.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "Reqres_Example.app"
-            BlueprintName = "Reqres_Example"
+            BlueprintIdentifier = "69A899BE1FF423E2003D0A71"
+            BuildableName = "ReqresExample.app"
+            BlueprintName = "ReqresExample"
             ReferencedContainer = "container:Reqres.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -69,6 +46,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -79,9 +57,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "Reqres_Example.app"
-            BlueprintName = "Reqres_Example"
+            BlueprintIdentifier = "69A899BE1FF423E2003D0A71"
+            BuildableName = "ReqresExample.app"
+            BlueprintName = "ReqresExample"
             ReferencedContainer = "container:Reqres.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -98,9 +76,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "Reqres_Example.app"
-            BlueprintName = "Reqres_Example"
+            BlueprintIdentifier = "69A899BE1FF423E2003D0A71"
+            BuildableName = "ReqresExample.app"
+            BlueprintName = "ReqresExample"
             ReferencedContainer = "container:Reqres.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
