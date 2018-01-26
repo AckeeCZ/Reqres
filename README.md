@@ -3,6 +3,7 @@
 [![CI Status](http://img.shields.io/travis/AckeeCZ/Reqres.svg?style=flat)](https://travis-ci.org/AckeeCZ/Reqres)
 [![Version](https://img.shields.io/cocoapods/v/Reqres.svg?style=flat)](http://cocoapods.org/pods/Reqres)
 [![License](https://img.shields.io/cocoapods/l/Reqres.svg?style=flat)](http://cocoapods.org/pods/Reqres)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/Reqres.svg?style=flat)](http://cocoapods.org/pods/Reqres)
 
 Reqres is a simple library for logging all requests and responses in your app. It supports Alamofire and also requests made via native NSURLSession.
@@ -39,12 +40,26 @@ Body: {
 
 ## Installation
 
+### CocoaPods
+
 Reqres is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
 pod "Reqres"
 ```
+
+### Carthage
+
+You can use [Carthage](https://github.com/Carthage/Carthage).
+Specify in Cartfile:
+
+```ruby
+github "AckeeCZ/Reqres"
+```
+
+Run `carthage update` to build the framework and drag the built Reqres.framework into your Xcode project. Follow [build instructions](https://github.com/Carthage/Carthage#getting-started). [New Issue](https://github.com/AckeeCZ/Reqres/issues/new).
+
 
 ### Swift version compatibility
 
@@ -124,3 +139,4 @@ This tool and repo has been opensourced within our `#sharingiscaring` action whe
 Reqres is available under the MIT license. See the LICENSE file for more info.
 
 [1]:	https://twitter.com/AckeeCZ
+
