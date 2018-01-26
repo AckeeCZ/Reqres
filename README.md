@@ -58,7 +58,7 @@ Specify in Cartfile:
 github "AckeeCZ/Reqres"
 ```
 
-Run `carthage` to build the framework and drag the built CryptoSwift.framework into your Xcode project. Follow [build instructions](https://github.com/Carthage/Carthage#getting-started). [Common issues](https://github.com/AckeeCZ/Reqres/issues/new).
+Run `carthage update` to build the framework and drag the built CryptoSwift.framework into your Xcode project. Follow [build instructions](https://github.com/Carthage/Carthage#getting-started). [New Issue](https://github.com/AckeeCZ/Reqres/issues/new).
 
 
 ### Swift version compatibility
