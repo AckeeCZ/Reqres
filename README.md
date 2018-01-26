@@ -49,7 +49,7 @@ it, simply add the following line to your Podfile:
 pod "Reqres"
 ```
 
-#### Carthage
+### Carthage
 
 You can use [Carthage](https://github.com/Carthage/Carthage).
 Specify in Cartfile:
