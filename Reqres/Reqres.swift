@@ -104,6 +104,12 @@ open class Reqres: URLProtocol, URLSessionDelegate {
             s += "\(url) "
         }
         
+        if let headers = request.allHTTPHeaderFields, headers.count > 0 {
+            s += "\n" + formatHeaders(headers as [String : AnyObject])
+        }
+        
+        s += "\nBody: \(formatBody(request.httpBodyData))"
+        
         s += "ERROR: \(error.localizedDescription)"
         
         if let reason = error.localizedFailureReason {
