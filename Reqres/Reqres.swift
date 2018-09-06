@@ -89,31 +89,37 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
     // MARK: - Logging
 
-    open func logError(_ request: URLRequest, error: NSError) {
-
+    public static func formatError(_ request: URLRequest, error: NSError) -> String {
         var s = ""
-
+        
         if Reqres.allowUTF8Emoji {
             s += "⚠️ "
         }
-
+        
         if let method = request.httpMethod {
             s += "\(method) "
         }
-
+        
         if let url = request.url?.absoluteString {
             s += "\(url) "
         }
-
+        
         s += "ERROR: \(error.localizedDescription)"
-
+        
         if let reason = error.localizedFailureReason {
             s += "\nReason: \(reason)"
         }
-
+        
         if let suggestion = error.localizedRecoverySuggestion {
             s += "\nSuggestion: \(suggestion)"
         }
+        
+        return s
+    }
+    
+    open func logError(_ request: URLRequest, error: NSError) {
+
+        let s = Reqres.formatError(request, error: error)
 
         Reqres.logger.logError(s)
     }
