@@ -23,6 +23,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
     open class func register() {
         URLProtocol.registerClass(self)
+        ReqResSwizzle.swizzle()
     }
 
     open class func unregister() {
@@ -60,7 +61,10 @@ open class Reqres: URLProtocol, URLSessionDelegate {
         URLProtocol.setProperty(true, forKey: ReqresRequestHandledKey, in: newRequest!)
         URLProtocol.setProperty(Date(), forKey: ReqresRequestTimeKey, in: newRequest!)
 
-        let session = URLSession(configuration: .default, delegate: Reqres.sessionDelegate ?? self, delegateQueue: nil)
+        let config = URLSessionConfiguration.default
+        config.protocolClasses = config.protocolClasses!.filter {$0 != Reqres.self}
+
+        let session = URLSession(configuration: config, delegate:Reqres.sessionDelegate ?? self, delegateQueue: nil)
         dataTask = session.dataTask(with: request) { [weak self] data, response, error in
             guard let `self` = self else { return }
 

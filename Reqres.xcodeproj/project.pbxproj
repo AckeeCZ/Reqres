@@ -21,6 +21,8 @@
 		69A899E11FF425E4003D0A71 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A899E01FF425E4003D0A71 /* Alamofire.framework */; };
 		69A899E91FF427E0003D0A71 /* ReqresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A899E81FF427E0003D0A71 /* ReqresTests.swift */; };
 		69A899EB1FF427E0003D0A71 /* Reqres.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A899B21FF423C4003D0A71 /* Reqres.framework */; };
+		7C460A8E214FE8FD00767D3F /* ReqResSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C460A8C214FE8FD00767D3F /* ReqResSwizzle.h */; };
+		7C460A8F214FE8FD00767D3F /* ReqResSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C460A8D214FE8FD00767D3F /* ReqResSwizzle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,8 @@
 		69A899E61FF427E0003D0A71 /* ReqresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReqresTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A899E81FF427E0003D0A71 /* ReqresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqresTests.swift; sourceTree = "<group>"; };
 		69A899EA1FF427E0003D0A71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C460A8C214FE8FD00767D3F /* ReqResSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReqResSwizzle.h; sourceTree = "<group>"; };
+		7C460A8D214FE8FD00767D3F /* ReqResSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReqResSwizzle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				69A899D31FF4245D003D0A71 /* Reqres.swift */,
+				7C460A8C214FE8FD00767D3F /* ReqResSwizzle.h */,
+				7C460A8D214FE8FD00767D3F /* ReqResSwizzle.m */,
 				69A899D21FF4245D003D0A71 /* ReqresDefaultLogger.swift */,
 				69A899D11FF4245D003D0A71 /* ReqresLogging.swift */,
 				69A899D71FF42463003D0A71 /* Supporting files */,
@@ -181,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69A899B71FF423C4003D0A71 /* Reqres.h in Headers */,
+				7C460A8E214FE8FD00767D3F /* ReqResSwizzle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +261,7 @@
 				TargetAttributes = {
 					69A899B11FF423C4003D0A71 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 					};
 					69A899BE1FF423E2003D0A71 = {
@@ -338,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C460A8F214FE8FD00767D3F /* ReqResSwizzle.m in Sources */,
 				69A899D61FF4245D003D0A71 /* Reqres.swift in Sources */,
 				69A899D41FF4245D003D0A71 /* ReqresLogging.swift in Sources */,
 				69A899D51FF4245D003D0A71 /* ReqresDefaultLogger.swift in Sources */,
