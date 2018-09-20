@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Reqres'
-  s.version          = '2.3.1'
+  s.version          = '3.0.0'
   s.summary          = 'Simple network activity logger'
   s.description      = <<-DESC
 Logs every request app makes, works great with Alamofire.
