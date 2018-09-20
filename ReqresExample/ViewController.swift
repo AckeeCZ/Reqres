@@ -23,8 +23,13 @@ class ViewController: UIViewController {
             .authenticate(user: "blabla", password: "blabla")
             .validate()
             .response(completionHandler: { (response) in
-                debugPrint(response.request)
-                debugPrint(response.response)
+                if let request = response.request {
+                    debugPrint(request)
+                }
+                
+                if let response = response.response {
+                    debugPrint(response)
+                }
             })
     }
 }
