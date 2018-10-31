@@ -11,30 +11,30 @@ Reqres is a simple library for logging all requests and responses in your app. I
 ```
 ⬆️ POST 'https://ackee.cz/examples'
 Headers: [
-	Accept-Encoding : gzip;q=1.0, compress;q=0.5
-	Accept-Language : en-US;q=1.0
-	Content-Type : application/json
-	User-Agent : Reqres_Example/org.cocoapods.demo.Reqres-Example (1; OS Version 9.3 (Build 13E230))
-	Content-Length : 13
+    Accept-Encoding : gzip;q=1.0, compress;q=0.5
+    Accept-Language : en-US;q=1.0
+    Content-Type : application/json
+    User-Agent : Reqres_Example/org.cocoapods.demo.Reqres-Example (1; OS Version 9.3 (Build 13E230))
+    Content-Length : 13
 ]
 Body: {
-	"foo" : "bar"
+    "foo" : "bar"
 }
 
 ...
 
 ⬇️ POST https://ackee.cz/examples (✅ 201 Created) [time: 0.54741 s]
 Headers: [
-	Vary : Authorization,Accept-Encoding
-	Content-Encoding : gzip
-	Content-Length : 13
-	Server : Apache
-	Content-Type : application/json
-	Date : Mon, 05 Sep 2016 07:33:51 GMT
-	Cache-Control : no-cache
+    Vary : Authorization,Accept-Encoding
+    Content-Encoding : gzip
+    Content-Length : 13
+    Server : Apache
+    Content-Type : application/json
+    Date : Mon, 05 Sep 2016 07:33:51 GMT
+    Cache-Control : no-cache
 ]
 Body: {
-	"foo" : "bar"
+    "foo" : "bar"
 }
 ```
 
@@ -73,11 +73,12 @@ Run `carthage update` to build the framework and drag the built Reqres.framework
 Initialization is different for usage with Alamofire and NSURLSession.
 
 ### Alamofire
-Create your Alamofire.Manager with proper configuration to make it work with Alamofire.
+Create your `SessionManager` with proper configuration to make it work with Alamofire.
 ```swift
 let configuration = Reqres.defaultSessionConfiguration()
 configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
-return SessionManager(configuration: configuration)
+let alamofireManager = SessionManager(configuration: configuration)
+Reqres.sessionDelegate = alamofireManager.delegate
 ```
 Then you must use this manager for all requests, so replace all `Alamofire.request(...)` to `alamofireManager.request(...)`
 
@@ -95,7 +96,7 @@ You can do some settings to make it fit your needs.
 Reqres uses default `print()` for logging to avoid unnecessary dependencies but it's ready for any logging framework. Make your custom logger class which complies to `ReqresLogging` protocol and set it to Reqres, that's all.
 ```
 class MyLogger: ReqresLogging {
-	...
+    ...
 }
 
 Reqres.logger = MyLogger()
@@ -120,10 +121,6 @@ Reqres uses emoji to make log better to read and to make it at least a little fu
 Reqres.allowUTF8Emoji = false
 ```
 
-## Known Issues
-
-Reqres breaks Alamofire `.authenticate(user: password:)` method (and possibly more..?). Use with caution! Write tests! Volunteer to fix this bug!
-
 ## Forking this repository
 If you use Reqres in your projects drop us as tweet at [@ackeecz][1]. We would love to hear about it!
 
@@ -139,4 +136,3 @@ This tool and repo has been opensourced within our `#sharingiscaring` action whe
 Reqres is available under the MIT license. See the LICENSE file for more info.
 
 [1]:	https://twitter.com/AckeeCZ
-
