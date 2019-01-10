@@ -45,7 +45,7 @@ open class ReqresDefaultNSLogger: ReqresLogging {
     }
 
     private func logMessage(_ message: String, type: MessageType) {
-        if #available(iOSApplicationExtension 10.0, *) {
+        if #available(iOS 10.0, *) {
             // Currently there is a bug which does not display .debug logs in the console, thus info
             let osLogType: OSLogType = type == .debug ? .info : .error
             let networkingLogger = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "-", category: "Networking")
