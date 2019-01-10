@@ -6,6 +6,8 @@
 //
 //
 
+import os.log
+
 open class ReqresDefaultLogger: ReqresLogging {
 
     private let dateFormatter: DateFormatter = {
@@ -37,15 +39,30 @@ open class ReqresDefaultNSLogger: ReqresLogging {
 
     open var logLevel: LogLevel = .verbose
 
+    @available(iOSApplicationExtension 10.0, *)
+    private var networkingLogger: OSLog { return OSLog(subsystem: Bundle.main.bundleIdentifier ?? "-", category: "Networking") }
+
     open func logVerbose(_ message: String) {
-        NSLog(message)
+        if #available(iOSApplicationExtension 10.0, *) {
+            os_log("%{private}@", log: networkingLogger, type: .info, message)
+        } else {
+            NSLog(message)
+        }
     }
 
     open func logLight(_ message: String) {
-        NSLog(message)
+        if #available(iOSApplicationExtension 10.0, *) {
+            os_log("%{private}@", log: networkingLogger, type: .info, message)
+        } else {
+            NSLog(message)
+        }
     }
 
     open func logError(_ message: String) {
-        NSLog(message)
+        if #available(iOSApplicationExtension 10.0, *) {
+            os_log("%{private}@", log: networkingLogger, type: .error, message)
+        } else {
+            NSLog(message)
+        }
     }
 }
