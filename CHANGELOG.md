@@ -7,3 +7,7 @@
 ```
 
 ## master
+
+```
+- Move from NSLog to unified logging (#19, kudos to @fortmarek)
+```
