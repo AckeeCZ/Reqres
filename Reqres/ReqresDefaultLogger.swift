@@ -39,9 +39,6 @@ open class ReqresDefaultNSLogger: ReqresLogging {
 
     open var logLevel: LogLevel = .verbose
 
-    @available(iOSApplicationExtension 10.0, *)
-    private var networkingLogger: OSLog { return OSLog(subsystem: Bundle.main.bundleIdentifier ?? "-", category: "Networking") }
-
     // It is not advised to wrap os_log, but we are basically wrapping it here anyway, so it should not matter
     private enum MessageType {
         case debug, error
@@ -51,6 +48,7 @@ open class ReqresDefaultNSLogger: ReqresLogging {
         if #available(iOSApplicationExtension 10.0, *) {
             // Currently there is a bug which does not display .debug logs in the console, thus info
             let osLogType: OSLogType = type == .debug ? .info : .error
+            let networkingLogger = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "-", category: "Networking")
             os_log("%{private}@", log: networkingLogger, type: osLogType, message)
         } else {
             NSLog(message)
