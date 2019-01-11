@@ -6,6 +6,8 @@
 //
 //
 
+import os.log
+
 open class ReqresDefaultLogger: ReqresLogging {
 
     private let dateFormatter: DateFormatter = {
@@ -37,15 +39,31 @@ open class ReqresDefaultNSLogger: ReqresLogging {
 
     open var logLevel: LogLevel = .verbose
 
+    // It is not advised to wrap os_log, but we are basically wrapping it here anyway, so it should not matter
+    private enum MessageType {
+        case debug, error
+    }
+
+    private func logMessage(_ message: String, type: MessageType) {
+        if #available(iOS 10.0, *) {
+            // Currently there is a bug which does not display .debug logs in the console, thus info
+            let osLogType: OSLogType = type == .debug ? .info : .error
+            let networkingLogger = OSLog(subsystem: Bundle.main.bundleIdentifier ?? "-", category: "Networking")
+            os_log("%{private}@", log: networkingLogger, type: osLogType, message)
+        } else {
+            NSLog(message)
+        }
+    }
+
     open func logVerbose(_ message: String) {
-        NSLog(message)
+        logMessage(message, type: .debug)
     }
 
     open func logLight(_ message: String) {
-        NSLog(message)
+        logMessage(message, type: .debug)
     }
 
     open func logError(_ message: String) {
-        NSLog(message)
+        logMessage(message, type: .error)
     }
 }
