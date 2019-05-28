@@ -9,7 +9,7 @@ import XCTest
 import Reqres
 
 final class ReqresDefaultNSLoggerTests: XCTestCase {
-    func testLoggerCanBeUsed() {
+    func testLoggerCanBeInstantiated() {
         _ = ReqresDefaultNSLogger()
     }
 }
