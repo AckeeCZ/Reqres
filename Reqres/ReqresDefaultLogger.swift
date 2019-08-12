@@ -17,6 +17,10 @@ open class ReqresDefaultLogger: ReqresLogging {
     }()
 
     open var logLevel: LogLevel = .verbose
+    
+    public init() {
+        
+    }
 
     open func logVerbose(_ message: String) {
         logMessage(message)
@@ -53,6 +57,10 @@ open class ReqresDefaultNSLogger: ReqresLogging {
         } else {
             NSLog(message)
         }
+    }
+    
+    public init() {
+        
     }
 
     open func logVerbose(_ message: String) {

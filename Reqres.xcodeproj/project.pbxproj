@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		69476012229D5AD90025CD8E /* ReqresDefaultLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69476011229D5AD90025CD8E /* ReqresDefaultLoggerTests.swift */; };
+		69476014229D5B0F0025CD8E /* ReqresDefaultNSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69476013229D5B0F0025CD8E /* ReqresDefaultNSLogger.swift */; };
 		69A899B71FF423C4003D0A71 /* Reqres.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A899B51FF423C4003D0A71 /* Reqres.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		69A899C21FF423E2003D0A71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A899C11FF423E2003D0A71 /* AppDelegate.swift */; };
 		69A899C41FF423E2003D0A71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A899C31FF423E2003D0A71 /* ViewController.swift */; };
@@ -19,7 +21,6 @@
 		69A899DA1FF425C0003D0A71 /* Reqres.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A899B21FF423C4003D0A71 /* Reqres.framework */; };
 		69A899DB1FF425C0003D0A71 /* Reqres.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 69A899B21FF423C4003D0A71 /* Reqres.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69A899E11FF425E4003D0A71 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A899E01FF425E4003D0A71 /* Alamofire.framework */; };
-		69A899E91FF427E0003D0A71 /* ReqresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A899E81FF427E0003D0A71 /* ReqresTests.swift */; };
 		69A899EB1FF427E0003D0A71 /* Reqres.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A899B21FF423C4003D0A71 /* Reqres.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		69476011229D5AD90025CD8E /* ReqresDefaultLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqresDefaultLoggerTests.swift; sourceTree = "<group>"; };
+		69476013229D5B0F0025CD8E /* ReqresDefaultNSLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqresDefaultNSLogger.swift; sourceTree = "<group>"; };
 		69A899B21FF423C4003D0A71 /* Reqres.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Reqres.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A899B51FF423C4003D0A71 /* Reqres.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reqres.h; sourceTree = "<group>"; };
 		69A899B61FF423C4003D0A71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,7 +73,6 @@
 		69A899D31FF4245D003D0A71 /* Reqres.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reqres.swift; sourceTree = "<group>"; };
 		69A899E01FF425E4003D0A71 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		69A899E61FF427E0003D0A71 /* ReqresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReqresTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		69A899E81FF427E0003D0A71 /* ReqresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqresTests.swift; sourceTree = "<group>"; };
 		69A899EA1FF427E0003D0A71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,8 +169,9 @@
 		69A899E71FF427E0003D0A71 /* ReqresTests */ = {
 			isa = PBXGroup;
 			children = (
-				69A899E81FF427E0003D0A71 /* ReqresTests.swift */,
 				69A899EA1FF427E0003D0A71 /* Info.plist */,
+				69476011229D5AD90025CD8E /* ReqresDefaultLoggerTests.swift */,
+				69476013229D5B0F0025CD8E /* ReqresDefaultNSLogger.swift */,
 			);
 			path = ReqresTests;
 			sourceTree = "<group>";
@@ -359,7 +362,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69A899E91FF427E0003D0A71 /* ReqresTests.swift in Sources */,
+				69476012229D5AD90025CD8E /* ReqresDefaultLoggerTests.swift in Sources */,
+				69476014229D5B0F0025CD8E /* ReqresDefaultNSLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
