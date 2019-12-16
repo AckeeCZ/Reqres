@@ -11,9 +11,13 @@
 
 <!--- - <description> (#<PR_number, kudos to @<author>) --->
 
+## 3.1.1
+
 - Migrate to Swift 5 and Xcode 10.2 (#20, kudos to @olejnjak)
 - Add public inits to built-in loggers so they can really be used (#21, kudos to @olejnjak)
 - Add SPM support (#23, kudos to @olejnjak)
+
+SPM release also supports macOS 🎉
 
 ## 3.1.0
 
