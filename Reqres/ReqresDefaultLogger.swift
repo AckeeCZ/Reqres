@@ -7,6 +7,7 @@
 //
 
 import os.log
+import Foundation
 
 open class ReqresDefaultLogger: ReqresLogging {
 

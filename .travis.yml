@@ -1,8 +1,9 @@
-osx_image: xcode10.2
+osx_image: xcode11.2
 language: objective-c
 cache:
   directories:
   - Carthage
+  - .build
 env:
   global:
   - FRAMEWORK_NAME=Reqres
@@ -17,6 +18,7 @@ after_deploy:
 - pod trunk push
 script:
 - set -o pipefail && xcodebuild test -scheme Reqres -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
+- swift build
 - pod lib lint
 deploy:
   provider: releases
