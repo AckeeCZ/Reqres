@@ -110,7 +110,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
         
         s += "\nBody: \(formatBody(request.httpBodyData))"
         
-        s += "ERROR: \(error.localizedDescription)"
+        s += "\nERROR: \(error.localizedDescription)"
         
         if let reason = error.localizedFailureReason {
             s += "\nReason: \(reason)"
