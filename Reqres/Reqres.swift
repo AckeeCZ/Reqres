@@ -287,7 +287,7 @@ extension URLRequest {
                 let readData = Data(bytes: UnsafePointer<UInt8>(buffer), count: bytesRead)
                 data.append(readData)
             } else if bytesRead < 0 {
-                print("error occured while reading HTTPBodyStream: \(bytesRead)")
+                print("error occurred while reading HTTPBodyStream: \(bytesRead)")
             } else {
                 break
             }

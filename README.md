@@ -129,7 +129,7 @@ This tool and repo has been opensourced within our `#sharingiscaring` action whe
 
 ## Author
 
-[Ackee](www.ackee.cz) team. We were inspired by andysmart's [Timberjack](https://github.com/andysmart/Timberjack)
+[Ackee](https://www.ackee.cz) team. We were inspired by andysmart's [Timberjack](https://github.com/andysmart/Timberjack)
 
 ## License
 
