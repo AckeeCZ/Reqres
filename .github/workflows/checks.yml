@@ -27,7 +27,5 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install Bundler dependencies
-        run: bundle install
       - name: Lint podspec
-        run: bundle exec pod lib lint
+        run: pod lib lint
