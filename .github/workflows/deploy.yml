@@ -1,0 +1,44 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+  carthage:
+    name: Upload Carthage binary 
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: AckeeCZ/load-xcode-version@1.0
+      - uses: actions/cache@v1
+        with:
+          path: Carthage
+          key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-carthage-
+      - name: Build
+        run: carthage build --no-skip-current --cache-builds
+      - name: Archive
+        run: carthage archive Reqres
+      - uses: xresloader/upload-to-github-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: Reqres.framework.zip
+          tags: true
+          draft: false
+  cocoapods:
+    name: Push podspec to Cocoapods trunk
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: AckeeCZ/load-xcode-version@1.0
+      - name: Install gems
+        run: bundle install
+      - name: Push podspec
+        run: bundle exec pod trunk push --allow-warnings
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
