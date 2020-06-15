@@ -60,15 +60,6 @@ github "AckeeCZ/Reqres"
 
 Run `carthage update` to build the framework and drag the built Reqres.framework into your Xcode project. Follow [build instructions](https://github.com/Carthage/Carthage#getting-started). [New Issue](https://github.com/AckeeCZ/Reqres/issues/new).
 
-
-### Swift version compatibility
-
-| Swift version | Reqres version |
-| ------------- | -------------- |
-| 2.x           | 1.2.x          |
-| 3.x           | >= 2.0         |
-| 4.x           | >= 2.0         |
-
 ## Usage
 Initialization is different for usage with Alamofire and NSURLSession.
 
