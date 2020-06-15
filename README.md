@@ -1,6 +1,6 @@
-![ackee|Reqres](https://github.com/AckeeCZ/Reqres/blob/master/Resources/cover-image.png)
+![ackee|Reqres](Resources/cover-image.png)
 
-[![CI Status](http://img.shields.io/travis/AckeeCZ/Reqres.svg?style=flat)](https://travis-ci.org/AckeeCZ/Reqres)
+![Tests](https://github.com/AckeeCZ/ACKategories/workflows/Tests/badge.svg)
 [![Version](https://img.shields.io/cocoapods/v/Reqres.svg?style=flat)](http://cocoapods.org/pods/Reqres)
 [![License](https://img.shields.io/cocoapods/l/Reqres.svg?style=flat)](http://cocoapods.org/pods/Reqres)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)

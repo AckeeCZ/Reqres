@@ -16,7 +16,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
     var newRequest: NSMutableURLRequest?
 
     public static var sessionDelegate: URLSessionDelegate?
-    
+
     public static var allowUTF8Emoji: Bool = true
 
     public static var logger: ReqresLogging = ReqresDefaultLogger()
@@ -57,8 +57,10 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
         self.newRequest = req
 
+        // swiftlint:disable force_unwrapping
         URLProtocol.setProperty(true, forKey: ReqresRequestHandledKey, in: newRequest!)
         URLProtocol.setProperty(Date(), forKey: ReqresRequestTimeKey, in: newRequest!)
+        // swiftlint:enable force_unwrapping
 
         let session = URLSession(configuration: .default, delegate: Reqres.sessionDelegate ?? self, delegateQueue: nil)
         dataTask = session.dataTask(with: request) { [weak self] data, response, error in
@@ -80,6 +82,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
         }
         dataTask?.resume()
 
+        // swiftlint:disable:next force_unwrapping
         logRequest(newRequest! as URLRequest)
     }
 
@@ -91,38 +94,38 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
     public static func formatError(_ request: URLRequest, error: NSError) -> String {
         var s = ""
-        
+
         if Reqres.allowUTF8Emoji {
             s += "⚠️ "
         }
-        
+
         if let method = request.httpMethod {
             s += "\(method) "
         }
-        
+
         if let url = request.url?.absoluteString {
             s += "\(url) "
         }
-        
+
         if let headers = request.allHTTPHeaderFields, headers.count > 0 {
-            s += "\n" + formatHeaders(headers as [String : AnyObject])
+            s += "\n" + formatHeaders(headers as [String: AnyObject])
         }
-        
+
         s += "\nBody: \(formatBody(request.httpBodyData))"
-        
+
         s += "\nERROR: \(error.localizedDescription)"
-        
+
         if let reason = error.localizedFailureReason {
             s += "\nReason: \(reason)"
         }
-        
+
         if let suggestion = error.localizedRecoverySuggestion {
             s += "\nSuggestion: \(suggestion)"
         }
-        
+
         return s
     }
-    
+
     open func logError(_ request: URLRequest, error: NSError) {
 
         let s = Reqres.formatError(request, error: error)
@@ -132,33 +135,33 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
     /// Format request to pretty printed string
     public static func formatRequest(_ request: URLRequest, level: LogLevel) -> String {
-        
+
         var s = ""
-        
+
         if Reqres.allowUTF8Emoji {
             s += "⬆️ "
         }
-        
+
         if let method = request.httpMethod {
             s += "\(method) "
         }
-        
+
         if let url = request.url?.absoluteString {
             s += "'\(url)' "
         }
-        
+
         if level == .verbose {
-            
+
             if let headers = request.allHTTPHeaderFields, headers.count > 0 {
-                s += "\n" + formatHeaders(headers as [String : AnyObject])
+                s += "\n" + formatHeaders(headers as [String: AnyObject])
             }
-            
+
             s += "\nBody: \(formatBody(request.httpBodyData))"
         }
-        
+
         return s
     }
-    
+
     open func logRequest(_ request: URLRequest) {
 
         let s = Reqres.formatRequest(request, level: Reqres.logger.logLevel)
@@ -170,24 +173,26 @@ open class Reqres: URLProtocol, URLSessionDelegate {
         }
     }
 
+    // swiftlint:disable cyclomatic_complexity
     /// Format response to pretty printed string
     public static func formatResponse(_ response: URLResponse, request: URLRequest?, method: String?, data: Data? = nil, level: LogLevel) -> String {
+        // swiftlint:enable cyclomatic_complexity
         var s = ""
-        
+
         if Reqres.allowUTF8Emoji {
             s += "⬇️ "
         }
-        
+
         if let method = method {
             s += "\(method)"
         } else if let method = request?.httpMethod {
             s += "\(method) "
         }
-        
+
         if let url = response.url?.absoluteString {
             s += "'\(url)' "
         }
-        
+
         if let httpResponse = response as? HTTPURLResponse {
             s += "("
             if Reqres.allowUTF8Emoji {
@@ -196,31 +201,31 @@ open class Reqres: URLProtocol, URLSessionDelegate {
                     s += "\(iconString) "
                 }
             }
-            
+
             s += "\(httpResponse.statusCode)"
             if let statusString = statusStrings[httpResponse.statusCode] {
                 s += " \(statusString)"
             }
             s += ")"
-            
+
             if let startDate = request.flatMap({ URLProtocol.property(forKey: ReqresRequestTimeKey, in: $0) }) as? Date {
                 let difference = fabs(startDate.timeIntervalSinceNow)
                 s += String(format: " [time: %.5f s]", difference)
             }
         }
-        
+
         if level == .verbose {
-            
+
             if let headers = (response as? HTTPURLResponse)?.allHeaderFields as? [String: AnyObject], headers.count > 0 {
                 s += "\n" + formatHeaders(headers)
             }
-            
+
             s += "\nBody: \(formatBody(data))"
         }
-        
+
         return s
     }
-    
+
     open func logResponse(_ response: URLResponse, method: String?, data: Data? = nil) {
 
         let s = Reqres.formatResponse(response, request: newRequest as URLRequest?, method: method, data: data, level: Reqres.logger.logLevel)
@@ -231,7 +236,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
             Reqres.logger.logLight(s)
         }
     }
-    
+
     /// Format headers dictionary to pretty printed string
     public static func formatHeaders(_ headers: [String: AnyObject]) -> String {
         var s = "Headers: [\n"
@@ -241,7 +246,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
         s += "]"
         return s
     }
-    
+
     @available(*, deprecated, message: "Use Reqres.formatHeaders() instead")
     open func logHeaders(_ headers: [String: AnyObject]) -> String {
         return Reqres.formatHeaders(headers)
@@ -263,7 +268,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
             return "nil"
         }
     }
-    
+
     @available(*, deprecated, message: "Use Reqres.formatBody() instead")
     func bodyString(_ body: Data?) -> String {
         return Reqres.formatBody(body)

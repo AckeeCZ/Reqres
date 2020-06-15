@@ -194,6 +194,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69A899BA1FF423C4003D0A71 /* Build configuration list for PBXNativeTarget "Reqres" */;
 			buildPhases = (
+				6996E46324633E76007B79FD /* Swiftlint */,
 				69A899AD1FF423C4003D0A71 /* Sources */,
 				69A899AE1FF423C4003D0A71 /* Frameworks */,
 				69A899AF1FF423C4003D0A71 /* Headers */,
@@ -320,6 +321,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6996E46324633E76007B79FD /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swiftlint autocorrect || true\nswiftlint || true\n";
+		};
 		69A899D91FF42591003D0A71 /* Carthage stuff */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
