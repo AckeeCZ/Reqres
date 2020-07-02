@@ -19,6 +19,12 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
     public static var allowUTF8Emoji: Bool = true
 
+    /// Mark response with `[CACHED]` if it comes from cache
+    ///
+    /// Responses marking is based on `Date` header and start time of the request.
+    /// Default true.
+    public static var markCachedResponses: Bool = true
+    
     public static var logger: ReqresLogging = ReqresDefaultLogger()
 
     /// Formatter to parse date from response header `Date`
@@ -197,28 +203,6 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
         if Reqres.allowUTF8Emoji {
             s += "⬇️ "
-            
-            // Mark response from cache
-            //
-            // If `Date` from the response header is earlier than start date of the request, it's cached response. `Date` is time
-            // when response was created on the server, so it's impossible for the request to be older than response if not cached.
-            //
-            // `startDate` is `Date` created from `Date()` so it's very precise. On the other hand, date parsed from header is rounded to
-            // seconds, so if API is really fast (< 1s), it marks even fresh response as cached. For example...
-            //
-            // request start time: 9:23:31.100
-            // response time: 9:23:31.500 (but sent as 9:23:31 without miliseconds)
-            //
-            // So response seems to be older than request but in fact is not. That's why we mark response as cached only if response time
-            // is more than 1 second earlier than start time to avoid this.
-            if let headers = responseHeaders,
-                let dateString = headers["Date"] as? String,
-                let date = responseDateFormatter.date(from: dateString),
-                let startDate = requestStartDate,
-                startDate.timeIntervalSince(date) > 1
-            {
-                s += "🗄 "
-            }
         }
 
         if let method = method {
@@ -250,6 +234,29 @@ open class Reqres: URLProtocol, URLSessionDelegate {
                 let difference = fabs(startDate.timeIntervalSinceNow)
                 s += String(format: " [time: %.5f s]", difference)
             }
+        }
+        
+        // Mark response from cache
+        //
+        // If `Date` from the response header is earlier than start date of the request, it's cached response. `Date` is time
+        // when response was created on the server, so it's impossible for the request to be older than response if not cached.
+        //
+        // `startDate` is `Date` created from `Date()` so it's very precise. On the other hand, date parsed from header is rounded to
+        // seconds, so if API is really fast (< 1s), it marks even fresh response as cached. For example...
+        //
+        // request start time: 9:23:31.100
+        // response time: 9:23:31.500 (but sent as 9:23:31 without miliseconds)
+        //
+        // So response seems to be older than request but in fact is not. That's why we mark response as cached only if response time
+        // is more than 1 second earlier than start time to avoid this.
+        if Reqres.markCachedResponses,
+            let headers = responseHeaders,
+            let dateString = headers["Date"] as? String,
+            let date = responseDateFormatter.date(from: dateString),
+            let startDate = requestStartDate,
+            startDate.timeIntervalSince(date) > 1
+        {
+            s += " [CACHED]"
         }
 
         if level == .verbose {
