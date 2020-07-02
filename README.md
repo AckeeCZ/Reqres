@@ -80,7 +80,7 @@ Register Reqres on application startup and it will monitor and log any requests 
 Reqres.register()
 ```
 
-## Customization
+## Features & customization
 You can do some settings to make it fit your needs.
 
 ### Custom logger
@@ -111,6 +111,28 @@ Reqres uses emoji to make log better to read and to make it at least a little fu
 ```swift
 Reqres.allowUTF8Emoji = false
 ```
+
+### Marking cached responses
+Reqres by default marks responses coming from cache with `[CACHED]`. You can disable it by setting
+```swift
+Reqres.markCachedResponses = false
+```
+
+This feature is based on response `Date` header and start time of the request.
+
+If `Date` from the response header is earlier than start date of the request, it's cached response. `Date` is time
+when response was created on the server, so it's impossible for the request to be older than response if not cached.
+
+`startDate` is `Date` created from `Date()` so it's very precise. On the other hand, date parsed from header is rounded to
+seconds, so if API is really fast (< 1s), it marks even fresh response as cached. For example...
+
+```
+request start time: 9:23:31.100
+response time: 9:23:31.500 (but sent as 9:23:31 without miliseconds)
+```
+
+So response seems to be older than request but in fact is not. That's why we mark response as cached only if response time
+is more than 1 second earlier than start time to avoid this.
 
 ## Forking this repository
 If you use Reqres in your projects drop us as tweet at [@ackeecz][1]. We would love to hear about it!
