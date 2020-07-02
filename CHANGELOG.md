@@ -11,6 +11,7 @@
 
 ### Added
 <!--- - <description> (#<PR_number, kudos to @<author>) --->
+- Mark cached responses ([#30](https://github.com/AckeeCZ/Reqres/pull/30), kudos to @janmisar)
 - Run SwiftLint on build if installed locally ([#29](https://github.com/AckeeCZ/ACKategories/pull/29), kudos to @olejnjak)
 
 ## 3.1.1
