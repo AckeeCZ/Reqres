@@ -18,6 +18,6 @@ jobs:
       - name: Install Carthage dependencies
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: carthage bootstrap --platform iOS --cache-builds
+        run: carthage bootstrap --platform iOS --cache-builds --use-xcframeworks
       - name: Run tests
         run: set -o pipefail && xcodebuild test -scheme Reqres -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' ONLY_ACTIVE_ARCH=YES | xcpretty
