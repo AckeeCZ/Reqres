@@ -11,9 +11,10 @@ let package = Package(
         .library(name: "Reqres", targets: ["Reqres"]),
     ],
     targets: [
-        .target(name: "Reqres", path: "Reqres")
-    ],
-    swiftLanguageVersions: [
-        .v5
+        .target(name: "Reqres"),
+        .testTarget(
+            name: "ReqresTests",
+            dependencies: ["Reqres"]
+        )
     ]
 )
