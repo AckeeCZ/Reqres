@@ -1,4 +1,4 @@
-whitelist_rules:
+only_rules:
   - class_delegate_protocol
   - closing_brace
   - colon
@@ -16,7 +16,7 @@ whitelist_rules:
   - weak_delegate
   - overridden_super_call
 included: # paths to include during linting. `--path` is ignored if present.
-  - Reqres
+  - Sources
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Carthage
   - Pods
