@@ -8,9 +8,11 @@
 ```
 
 ## main
+<!--- - <description> (#<PR_number, kudos to @<author>) --->
+
+## 3.2.0
 
 ### Added
-<!--- - <description> (#<PR_number, kudos to @<author>) --->
 - Run SwiftLint on build if installed locally ([#29](https://github.com/AckeeCZ/Reqres/pull/29), kudos to @olejnjak)
 
 ### Changed
