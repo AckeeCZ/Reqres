@@ -9,7 +9,7 @@ Logs every request app makes, works great with Alamofire.
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Ackee' => 'info@ackee.cz' }
   s.source           = { :git => 'https://github.com/AckeeCZ/Reqres.git', :tag => s.version.to_s }
-  s.ios.deployment_target = '8.0'
-  s.swift_version    = '5.1'
-  s.source_files = 'Reqres/*.swift'
+  s.ios.deployment_target = '11.0'
+  s.swift_version    = '5.0'
+  s.source_files = 'Sources/Reqres/*.swift'
 end

@@ -7,13 +7,16 @@
 - <description> (#<PR_number>, kudos to @<author>)
 ```
 
-## master
+## main
 
 ### Added
 <!--- - <description> (#<PR_number, kudos to @<author>) --->
 - Run SwiftLint on build if installed locally ([#29](https://github.com/AckeeCZ/Reqres/pull/29), kudos to @olejnjak)
 
 ### Changed
+- Update structure ([#35](https://github.com/AckeeCZ/Reqres/pull/35), kudos to @olejnjak)
+    - use Xcode 14.3
+    - bump deployment target to iOS 11
 - Use Xcode 12.4 on CI ([#31](https://github.com/AckeeCZ/Reqres/pull/31), kudos to @olejnjak)
 
 ## 3.1.1

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1000"
-   version = "1.3">
+   LastUpgradeVersion = "1430"
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "69A899BE1FF423E2003D0A71"
+               BlueprintIdentifier = "697C58A029D6EE8100A64ED7"
                BuildableName = "ReqresExample.app"
                BlueprintName = "ReqresExample"
                ReferencedContainer = "container:Reqres.xcodeproj">
@@ -26,20 +26,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "69A899BE1FF423E2003D0A71"
-            BuildableName = "ReqresExample.app"
-            BlueprintName = "ReqresExample"
-            ReferencedContainer = "container:Reqres.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -55,14 +43,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "69A899BE1FF423E2003D0A71"
+            BlueprintIdentifier = "697C58A029D6EE8100A64ED7"
             BuildableName = "ReqresExample.app"
             BlueprintName = "ReqresExample"
             ReferencedContainer = "container:Reqres.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -74,7 +60,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "69A899BE1FF423E2003D0A71"
+            BlueprintIdentifier = "697C58A029D6EE8100A64ED7"
             BuildableName = "ReqresExample.app"
             BlueprintName = "ReqresExample"
             ReferencedContainer = "container:Reqres.xcodeproj">
