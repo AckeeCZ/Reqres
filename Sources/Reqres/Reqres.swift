@@ -11,7 +11,7 @@ import Foundation
 private let ReqresRequestHandledKey = "ReqresRequestHandledKey"
 private let ReqresRequestTimeKey = "ReqresRequestTimeKey"
 
-open class Reqres: URLProtocol, URLSessionDelegate {
+open class ReqresLogger: URLProtocol, URLSessionDelegate {
     var dataTask: URLSessionDataTask?
     var newRequest: NSMutableURLRequest?
 
@@ -31,7 +31,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
     open class func defaultSessionConfiguration() -> URLSessionConfiguration {
         let config = URLSessionConfiguration.default
-        config.protocolClasses?.insert(Reqres.self, at: 0)
+        config.protocolClasses?.insert(Self.self, at: 0)
         return config
     }
 
@@ -62,7 +62,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
         URLProtocol.setProperty(Date(), forKey: ReqresRequestTimeKey, in: newRequest!)
         // swiftlint:enable force_unwrapping
 
-        let session = URLSession(configuration: .default, delegate: Reqres.sessionDelegate ?? self, delegateQueue: nil)
+        let session = URLSession(configuration: .default, delegate: type(of: self).sessionDelegate ?? self, delegateQueue: nil)
         dataTask = session.dataTask(with: request) { [weak self] data, response, error in
             guard let `self` = self else { return }
 
@@ -95,7 +95,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
     public static func formatError(_ request: URLRequest, error: NSError) -> String {
         var s = ""
 
-        if Reqres.allowUTF8Emoji {
+        if Self.allowUTF8Emoji {
             s += "⚠️ "
         }
 
@@ -128,9 +128,9 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
     open func logError(_ request: URLRequest, error: NSError) {
 
-        let s = Reqres.formatError(request, error: error)
+        let s = type(of: self).formatError(request, error: error)
 
-        Reqres.logger.logError(s)
+        type(of: self).logger.logError(s)
     }
 
     /// Format request to pretty printed string
@@ -138,7 +138,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
         var s = ""
 
-        if Reqres.allowUTF8Emoji {
+        if Self.allowUTF8Emoji {
             s += "⬆️ "
         }
 
@@ -164,12 +164,12 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
     open func logRequest(_ request: URLRequest) {
 
-        let s = Reqres.formatRequest(request, level: Reqres.logger.logLevel)
+        let s = type(of: self).formatRequest(request, level: type(of: self).logger.logLevel)
 
-        if Reqres.logger.logLevel == .verbose {
-            Reqres.logger.logVerbose(s)
+        if type(of: self).logger.logLevel == .verbose {
+            type(of: self).logger.logVerbose(s)
         } else {
-            Reqres.logger.logLight(s)
+            type(of: self).logger.logLight(s)
         }
     }
 
@@ -179,7 +179,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
         // swiftlint:enable cyclomatic_complexity
         var s = ""
 
-        if Reqres.allowUTF8Emoji {
+        if Self.allowUTF8Emoji {
             s += "⬇️ "
         }
 
@@ -195,7 +195,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
         if let httpResponse = response as? HTTPURLResponse {
             s += "("
-            if Reqres.allowUTF8Emoji {
+            if Self.allowUTF8Emoji {
                 let iconNumber = Int(floor(Double(httpResponse.statusCode) / 100.0))
                 if let iconString = statusIcons[iconNumber] {
                     s += "\(iconString) "
@@ -228,12 +228,12 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
     open func logResponse(_ response: URLResponse, method: String?, data: Data? = nil) {
 
-        let s = Reqres.formatResponse(response, request: newRequest as URLRequest?, method: method, data: data, level: Reqres.logger.logLevel)
+        let s = type(of: self).formatResponse(response, request: newRequest as URLRequest?, method: method, data: data, level: type(of: self).logger.logLevel)
 
-        if Reqres.logger.logLevel == .verbose {
-            Reqres.logger.logVerbose(s)
+        if type(of: self).logger.logLevel == .verbose {
+            type(of: self).logger.logVerbose(s)
         } else {
-            Reqres.logger.logLight(s)
+            type(of: self).logger.logLight(s)
         }
     }
 
@@ -249,7 +249,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
     @available(*, deprecated, message: "Use Reqres.formatHeaders() instead")
     open func logHeaders(_ headers: [String: AnyObject]) -> String {
-        return Reqres.formatHeaders(headers)
+        type(of: self).formatHeaders(headers)
     }
 
     /// Format data from body to pretty printed string
@@ -271,7 +271,7 @@ open class Reqres: URLProtocol, URLSessionDelegate {
 
     @available(*, deprecated, message: "Use Reqres.formatBody() instead")
     func bodyString(_ body: Data?) -> String {
-        return Reqres.formatBody(body)
+        type(of: self).formatBody(body)
     }
 }
 
