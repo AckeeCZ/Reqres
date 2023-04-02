@@ -9,6 +9,8 @@
 
 ## main
 <!--- - <description> (#<PR_number, kudos to @<author>) --->
+
+## 3.2.1
 - Change Reqres class name to ReqresLogger ([#36](https://github.com/AckeeCZ/Reqres/pull/36), kudos to @olejnjak)
 
 ## 3.2.0
