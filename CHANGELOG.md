@@ -9,6 +9,7 @@
 
 ## main
 <!--- - <description> (#<PR_number, kudos to @<author>) --->
+- Use Xcode16, increase deployment target to iOS 12 and macOS 10.13 ([#38](https://github.com/AckeeCZ/Reqres/pull/38), kudos to @olejnjak)
 
 ## 3.2.1
 - Change Reqres class name to ReqresLogger ([#36](https://github.com/AckeeCZ/Reqres/pull/36), kudos to @olejnjak)
