@@ -77,7 +77,7 @@ Then you must use this manager for all requests, so replace all `Alamofire.reque
 Register Reqres on application startup and it will monitor and log any requests you make via NSURLSession or NSURLConnection.
 
 ```swift
-Reqres.register()
+ReqresLogger.register()
 ```
 
 ## Customization
@@ -90,7 +90,7 @@ class MyLogger: ReqresLogging {
     ...
 }
 
-Reqres.logger = MyLogger()
+ReqresLogger.logger = MyLogger()
 ```
 
 ### Log level
@@ -109,7 +109,7 @@ Reqres uses `Verbose` log level by default. To change log level just set right v
 ### Emoji
 Reqres uses emoji to make log better to read and to make it at least a little funny and nice. If you dont't like that, you can turn it off of course.
 ```swift
-Reqres.allowUTF8Emoji = false
+ReqresLogger.allowUTF8Emoji = false
 ```
 
 ## Forking this repository
