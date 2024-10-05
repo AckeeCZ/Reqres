@@ -5,7 +5,7 @@ let package = Package(
     name: "Reqres",
     platforms: [
         .iOS(.v11),
-        .macOS(.v10_12)
+        .macOS(.v10_13)
     ],
     products: [
         .library(name: "Reqres", targets: ["Reqres"]),
